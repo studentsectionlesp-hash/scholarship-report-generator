@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scholarship Report Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .input-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+      input[type="text"]:focus {
+        border-color: #4caf50;
+        outline: none;
+      }
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 10px 5px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+      .loading {
+        display: none;
+        text-align: center;
+        margin: 20px 0;
+      }
+      .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 2s linear infinite;
+        margin: 0 auto;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .result {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 5px;
+      }
+      .success {
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+      }
+      .error {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 12px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #ffff99;
+        font-weight: bold;
+        position: sticky;
+        top: 0;
+      }
+      .hostel-row {
+        background-color: #ccffff;
+      }
+      .scholarship-row {
+        background-color: white;
+      }
+      .not-available {
+        background-color: #ff9999;
+      }
+      .amount-disbursed {
+        background-color: #ccffcc;
+      }
+      .table-container {
+        overflow-x: auto;
+        max-height: 600px;
+        overflow-y: auto;
+      }
+      .download-btn {
+        background-color: #2196f3;
+        margin-top: 10px;
+      }
+      .download-btn:hover {
+        background-color: #1976d2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>📊 Scholarship Report Generator</h1>
+
+      <div class="input-group">
+        <label for="enrollmentNo">Enter Enrollment Number:</label>
+        <input
+          type="text"
+          id="enrollmentNo"
+          placeholder="Enter enrollment number..."
+        />
+      </div>
+
+      <button onclick="searchStudent()" id="searchBtn">
+        🔍 Generate Report
+      </button>
+
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Loading data and generating report...</p>
+      </div>
+
+      <div id="result"></div>
+
+      <div id="tableContainer" class="table-container" style="display: none">
+        <table id="reportTable">
+          <thead id="tableHead"></thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+        <button
+          class="download-btn"
+          onclick="downloadExcel()"
+          id="downloadBtn"
+          style="display: none"
+        >
+          📥 Download Excel Report
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
