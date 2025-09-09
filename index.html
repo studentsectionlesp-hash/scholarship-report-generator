@@ -55,6 +55,19 @@
         font-size: 16px;
         margin: 10px 5px;
       }
+      .reasonsContainer{
+        width: 100%;
+        overflow-x: auto;
+      }
+      .reasonsContainer img{        
+        /* height: auto; */
+        margin-top: 20px;
+      }
+      @media (max-width: 600px) {
+        .reasonsContainer img{
+          width: 600px;
+        }
+      }
       button:hover {
         background-color: #45a049;
       }
@@ -180,6 +193,9 @@
         >
           📥 Download Excel Report
         </button>
+      </div>
+      <div class="reasonsContainer">
+        <img src="static/reasons.jpg" alt="">
       </div>
     </div>
 
